@@ -2,8 +2,21 @@
 
 namespace Corp\Providers;
 
+
+
+use Corp\Policies\MenusPolicy;
+use Corp\Policies\PermissionPolicy;
+use Corp\Policies\ArticlePolicy;
+use Corp\Policies\UserPolicy;
+
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+
+
+use Corp\Menu;
+use Corp\Article;
+use Corp\Permission;
+use Corp\User;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,17 +26,34 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'Corp\Model' => 'Corp\Policies\ModelPolicy',
+        Article::class => ArticlePolicy::class,
+        Permission::class => PermissionPolicy::class,
+        Menu::class => MenusPolicy::class,
+        User::class => UserPolicy::class
     ];
 
     /**
      * Register any authentication / authorization services.
      *
      * @return void
+     * @return void
      */
     public function boot()
     {
-        $this->registerPolicies();
+       $this->registerPolicies();
+
+        Gate::define('VIEW_ADMIN', function ($user) {
+           return $user->canDo('VIEW_ADMIN');
+        });
+        Gate::define('VIEW_ADMIN_ARTICLES', function ($user) {
+            return $user->canDo('VIEW_ADMIN_ARTICLES');
+        });
+        Gate::define('EDIT_USERS', function ($user) {
+            return $user->canDo('EDIT_USERS');
+        });
+        Gate::define('VIEW_ADMIN_MENU', function ($user) {
+            return $user->canDo('VIEW_ADMIN_MENU');
+        });
 
         //
     }

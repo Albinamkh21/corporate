@@ -10,7 +10,7 @@
                             <div class="nozoom">
                                 <img src="{{ asset(env('THEME')) }}/images/projects/{{ $portfolio->img->max }}" alt="0061" title="0061" />
                                 <div class="overlay">
-                                    <a class="overlay_img" href="{{ asset(env('THEME')) }}/ images/projects/{{ $portfolio->img->path }}" rel="lightbox" title="Love"></a>
+                                    <a class="overlay_img" href="{{ asset(env('THEME')) }}/images/projects/{{ $portfolio->img->path }}" rel="lightbox" title="Love"></a>
                                     <a class="overlay_project" href="{{ route('portfolio.show', $portfolio->alias ) }}"></a>
                                     <span class="overlay_title">{{ $portfolio->title }}</span>
                                 </div>

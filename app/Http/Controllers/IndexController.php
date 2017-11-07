@@ -8,6 +8,7 @@ use Corp\Repositories\PortfoliosRepository;
 use Corp\Repositories\ArticlesRepository;
 use Config;
 
+
 class IndexController extends SiteController
 {
 
@@ -32,6 +33,7 @@ class IndexController extends SiteController
      */
     public function index()
     {
+
         $portfoliosData = $this->getPortfolios();
         $content = view(env('THEME').'.content')->with('portfolios', $portfoliosData)->render();
         $this->data = array_add($this->data, 'content',$content);

@@ -104,7 +104,7 @@
 
                 <!-- START LOGO -->
                 <div id="logo" class="group">
-                    <a href="index.html" title="Pink Rio"><img src="{{ asset(env('THEME')) }}/images/logo.png" title="Pink Rio" alt="Pink Rio" /></a>
+                    <a href="{{ route('home') }}" title="Pink Rio"><img src="{{ asset(env('THEME')) }}/images/logo.png" title="Pink Rio" alt="Pink Rio" /></a>
                 </div>
                 <!-- END LOGO -->
 
@@ -134,14 +134,24 @@
 
         @if(Route::currentRouteName() == 'portfolio.index'  )
         <!-- START PAGE META -->
-        <div id="page-meta">
-            <div class="inner group">
-                <h3>Welcome to my portfolio page</h3>
-                <h4>... i hope you enjoy my works</h4>
+            <div id="page-meta">
+                <div class="inner group">
+                    <h3>Welcome to my portfolio page</h3>
+                    <h4>... i hope you enjoy my works</h4>
+                </div>
             </div>
-        </div>
-        <!-- END PAGE META -->]
+            <!-- END PAGE META -->]
         @endif
+    @if(Route::currentRouteName() == 'contacts.index'  )
+        <!-- START PAGE META -->
+            <div id="page-meta">
+                <div class="inner group">
+                    <h3>...Say Hello! :)</h3>
+                    <h4>Get in touch with Pink Rio team</h4>
+                </div>
+            </div>
+            <!-- END PAGE META -->]
+    @endif
 
 
         <!-- START PRIMARY -->

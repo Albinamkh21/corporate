@@ -27,10 +27,27 @@ Route::resource('articles', 'ArticlesController', [
         'parameters' => ['articles' => 'alias']
     ]
 );
-Route::get('articles/cat/{category?}', ['uses' => 'ArticlesController@index', 'as'=> 'articles_category' ]);
+Route::get('articles/cat/{category?}', ['uses' => 'ArticlesController@index', 'as'=> 'articles_category' ])->where('category','[\w-]+' );
 
 Route::resource('comment', 'CommentController', [
         'only' => ['store']
     ]
 );
+Route::match(['get', 'post'], '/contacts', ['uses' => 'ContactController@index', 'as' => 'contacts']);
 
+
+Route::get('login', 'Auth\LoginController@showLoginForm');
+Route::post('login', ['as' => 'login', 'uses' => 'Auth\LoginController@login']);
+Route::get('logout', 'Auth\LoginController@logout');
+
+//admin panel
+
+Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'as' => 'admin.'], function(){
+
+    Route::get('/', ['uses' => 'Admin\IndexController@index', 'as' => 'adminIndex' ]);
+    Route::resource('/articles',  'Admin\ArticlesController');
+    Route::resource('/permissions',  'Admin\PermissionController');
+    Route::resource('/menu',  'Admin\MenuController');
+    Route::resource('/users',  'Admin\UsersController');
+
+});

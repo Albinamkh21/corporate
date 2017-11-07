@@ -11,7 +11,7 @@ use Menu;
 class SiteController extends Controller
 {
     protected $portfolio_repa;
-    protected $service_repa;
+    //protected $service_repa;
     protected $articles_repa;
     protected $menus_repa;
     protected $sliders_repa;
@@ -46,6 +46,10 @@ class SiteController extends Controller
         if($this->contentRightBar){
           $sidebarRight = view(env('THEME').'.sidebar_right')->with('sidebar_right_content',$this->contentRightBar)->render();
           $this->data = array_add($this->data, 'sidebar_right', $sidebarRight);
+        }
+        if($this->contentLeftBar){
+            $sidebarLeft = view(env('THEME').'.sidebar_left')->with('sidebar_left_content',$this->contentLeftBar)->render();
+            $this->data = array_add($this->data, 'sidebar_left', $sidebarLeft);
         }
         $this->data = array_add($this->data, 'sidebar', $this->sidebar);
 

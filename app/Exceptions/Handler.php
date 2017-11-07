@@ -3,6 +3,7 @@
 namespace Corp\Exceptions;
 
 use Exception;
+use Log;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -48,6 +49,15 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+
+       if($this->isHTTPException($exception)){
+            $statusCode = $exception->getStatusCode();
+            switch ($statusCode){
+                case '404' :
+                    Log::alert('Страница не найдена - '. $request->url());
+                    return response()->view(env('THEME').'.404', ['sidebar'=>'no', 'title' => 'Страница не найдена.']);
+            }
+       }
         return parent::render($request, $exception);
     }
 }

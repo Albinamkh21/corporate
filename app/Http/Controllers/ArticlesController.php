@@ -76,11 +76,15 @@ class ArticlesController extends SiteController
 
     public function show($alias = false)
     {
+
         $select = ['title', 'alias', 'created_at', 'img', 'desc', 'userId', 'categoryId','id', 'text', 'meta_desc', 'keywords'];
         $article = $this->getArticles(false, $alias, $select)[0];
-        $this->title = $article->title;
-        $this->keywords = $article->keywords;
-        $this->meta_desc = $article->meta_desc;
+        if(isset($article->id)){
+            $this->title = $article->title;
+            $this->keywords = $article->keywords;
+            $this->meta_desc = $article->meta_desc;
+        }
+
         $content = view(env('THEME').'.blog_article_content')->with('article', $article)->render();
         $this->data = array_add($this->data, 'content',$content);
 
